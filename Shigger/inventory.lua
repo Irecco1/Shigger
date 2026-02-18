@@ -8,6 +8,7 @@ local inventory = {}
 
 -- local variables
 
+local thrash_list = config.thrash_list
 
 -- =====================
 -- PRIVATE
@@ -32,9 +33,12 @@ function inventory.checkInventory()
         if config.empty_thrash then
             local thrash_exists = false
             for i=2, 16 do
-                if turtle.getItemDetail(i) then
-                    for _, thrash in ipairs(config.whitelist) do
-                        if not turtle.getItemDetail(i).name:find(thrash, 1 ,true) then
+                for _, whitelist in ipairs(config.whitelist) do
+                    if turtle.getItemDetail(i).name:find(whitelist, 1 ,true) then
+                        break
+                    end
+                    for _, thrash in ipairs(thrash_list) do
+                        if turtle.getItemDetail(i).name:find(thrash, 1 ,true) then
                             turtle.select(i)
                             turtle.drop()
                             thrash_exists = true
