@@ -68,7 +68,7 @@ local function main()
             digger.dig(target)
             inventory.checkInventory()
         end
-        depth = depth -9
+        depth = depth -8
         movement.goTo({x=0, y=depth, z=0})
     end
     inventory.emptyInventory()
@@ -81,4 +81,5 @@ end
 local ok, err = pcall(main)
 if not ok then
     emergencyReturn(err)
+
 end
