@@ -7,7 +7,13 @@ return {
     max_fuel = 2000,
     max_movement_retry_amount = 10,
     empty_thrash = false,
-    thrash_list = {},
+    thrash_list = {
+        "stone", --cobblestone, sandstone, blackstone etc.
+        "dirt",
+        "gravel",
+        "sand",
+        "deepslate",
+    },
 }
 
 
@@ -30,3 +36,4 @@ return {
 -- =====================
 -- PUBLIC API
 -- =====================
+
