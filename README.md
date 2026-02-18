@@ -38,7 +38,11 @@ TODO:
 # INSTALATION
 Just use this command in your turtle:
 
-`wget https://raw.githubusercontent.com/Irecco1/Shigger/refs/heads/main/install.lua install.lua install`
+`wget https://raw.githubusercontent.com/Irecco1/Shigger/refs/heads/main/install.lua install.lua`
+
+next you run the program `install`
+and everything should be done!
+
 
 Okay, I guess that's everything, I am not sorry for wasteing your time here, and if you use this project, I hope it will give you enough resources to compensate the headache you probably got while reading it
 
