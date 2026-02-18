@@ -12,7 +12,7 @@ Instruction:
 1) Place the robotg facing NORTH
 2) equip him with pickaxe and geo scanner (he doesn't care if he has it, so it will break if you don't do it)
 3) place a chest behind the robot. It can be a double chest, modded chest, doesn't matter
-4) robot must be placed on surface, and if not, make sure there is no ore at the same level as chest in 8 block radius, because he might break the chest xd
+4) robot must be placed on surface, and if not, make sure there is no ore at the same level as chest in 8 block radius from the turtle, because he might break the chest xd
 5) type "main" in the robot and hit enter and follow instructions (the fuel SHOULD be coal, because it can stack with the coal he digs, but if you give him enough of a different fuel, it should work fine)
 6) wait for him to finish the job of digging all resources in 8x8 radius
 7) profit
