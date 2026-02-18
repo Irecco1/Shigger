@@ -38,6 +38,8 @@ TODO:
 
 4) make better UI
 
+5) Add an experimental option for turtle to change the position and start mining again (might be problematic if the turtle gets unloaded at some point, as at this point it won't be able to come back, because the program will close)
+
 # INSTALATION
 Just use this command in your turtle:
 
