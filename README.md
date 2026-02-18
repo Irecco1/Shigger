@@ -40,4 +40,6 @@ TODO:
 
 Okay, I guess that's everything, I am not sorry for wasteing your time here, and if you use this project, I hope it will give you enough resources to compensate the headache you probably got while reading it
 
-Bye, and have a nice day!
+I am also still learning the github, so pardon me for not making it easily accessible at the moment ^^"
+
+Bye, and have a nice day! :3
