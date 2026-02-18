@@ -10,6 +10,8 @@ local scanner = {}
 
 local white_list = config.whitelist
 
+local special_ores = {}
+
 -- =====================
 -- PRIVATE
 -- =====================
@@ -20,6 +22,11 @@ local function getScanner()
         error("Geo scanner not found!")
     end
     return device
+end
+
+local function saveSpecialOre(list, block)
+    local robot_position = state.getPosition()
+    table.insert(list, {name=block.name, x=block.x, y=(block.y + robot_position.y), z=block.z})
 end
 
 
@@ -45,8 +52,13 @@ function scanner.scan()
         if block.y <= 0 then
             for _, tag in ipairs(white_list) do
                 if block.name:find(tag, 1, true) then
-                    table.insert(target_list, {x=(block.x + robot_position.x), y=(block.y + robot_position.y), z=(block.z + robot_position.z)})
-                    break
+                    if block.name:find("allthemodium", 1, true) or block.name:find("vibranium", 1, true) or block.name:find("unobtanium", 1, true) then
+                        saveSpecialOre(special_ores, block)
+                        break
+                    else
+                        table.insert(target_list, {x=(block.x + robot_position.x), y=(block.y + robot_position.y), z=(block.z + robot_position.z)})
+                        break
+                    end
                 end
             end
         end
@@ -60,9 +72,34 @@ function scanner.isBedrockFound()
     
     for _, v in ipairs(block_list) do
         if v.name == "minecraft:bedrock" then
+            local target_list = {}
+            local block_list = device.scan(8)
+            local robot_position = state.getPosition()
+            for _, block in ipairs(block_list) do
+                for _, tag in ipairs(white_list) do
+                    if block.name:find(tag, 1, true) then
+                        saveSpecialOre(special_ores, block)
+                        break
+                    end
+                end
+            end
             return true
         end
     end
+end
+
+function scanner.getSPecialOresList()
+    local list = {}
+    for _, v in ipairs(special_ores) do
+        table.insert(list, {
+            name=v.name,
+            x=v.x,
+            y=v.y,
+            z=v.z,
+        })
+    end
+    special_ores = {}
+    return list
 end
 
 return scanner

@@ -16,14 +16,29 @@ local function emergencyReturn(err)
     inventory.emptyInventory()
 end
 
+local function saveUnminedBlocks(list)
+    local file = fs.open("unmined.txt", "w")
+
+    for _, block in ipairs(list) do
+        file.writeLine(
+            block.name ..
+            "\nx=" .. block.x ..
+            ", y=" .. block.y ..
+            ", z=" .. block.z
+        )
+    end
+
+    file.close()
+    
+end
+
 fuel.setMovementGoTo(movement.goTo)
 
 -- =====================
 -- MAIN LOGIC
 -- =====================
 
-local function main()
-    --[[
+ --[[
     1. first start, it should be placed facing north, with the chest behind the robot on the same level.
     2. next, preferably the coal should be put in the slot 1 of the turtle, for it to refuel itself
     3. after that, the robot can start the work:
@@ -40,9 +55,13 @@ local function main()
     If at any point, the robot encounters an error, it should immidietely go back to surface
     --]]
 
+local function main()
     fuel.manualRefuel()
     local depth = 0
     while true do
+        if scanner.isBedrockFound() then
+            break
+        end
         local scan_list = scanner.scan()
         local targets = planner.makePlan(scan_list)
         for _, target in ipairs(targets) do
@@ -51,12 +70,10 @@ local function main()
         end
         depth = depth -9
         movement.goTo({x=0, y=depth, z=0})
-
-        if scanner.isBedrockFound() then
-            break
-        end
     end
     inventory.emptyInventory()
+
+    saveUnminedBlocks(scanner.getSPecialOresList())
 end
 
 
