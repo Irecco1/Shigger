@@ -7,6 +7,13 @@ return {
     max_fuel = 2000,
     max_movement_retry_amount = 10,
     empty_thrash = false,
+    thrash_list = {
+        "minecraft:cobblestone",
+        "minecraft:deepslate",
+        "minecfraft:gravel",
+        "minecraft:dirt",
+        "minecraft:sand",
+    },
 }
 
 
@@ -29,5 +36,6 @@ return {
 -- =====================
 -- PUBLIC API
 -- =====================
+
 
 
