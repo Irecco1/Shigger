@@ -42,6 +42,7 @@ Just use this command in your turtle:
 
 next you run the program `install`
 and everything should be done!
+(if it doesn't work, I will try to fix it later, because I can't test it at the moment)
 
 
 Okay, I guess that's everything, I am not sorry for wasteing your time here, and if you use this project, I hope it will give you enough resources to compensate the headache you probably got while reading it
