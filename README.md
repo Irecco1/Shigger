@@ -31,8 +31,11 @@ I have only tested it on advanced turtle
 
 TODO:
 ~~1) at bedrock layer, the robot will just perform the scan and generate a file with ores and their positions. It's too much work to dig around bedrock~~ Implemented, need tests
+
 ~~2) sometimes robot doesn't detect the bedrock and gets stuck. It will use the emergency return at that point so no worries, but I need to fix it~~ I changed the code a little, but the robot need tests
+
 ~~3) I am preparing this for ATM 10, so it will also detect allthemodium ore and avoid it + print you location of it (turtles cannot mine allthemodium, even if you give them netherite pickaxe using datapacks :C )~~ special detection of allthemodium, vibranium and unobtainium added. There is no script to avoid collision, it's so rare I just hope it won't happen (we all know that it will xd)
+
 4) make better UI
 
 # INSTALATION
