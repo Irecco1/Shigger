@@ -20,7 +20,7 @@ Instruction:
 If robot ever encounters an error, it will go into an emergency mode, which will make him dig to surface, empty his inventory to chest and wait there for you to use your pickaxe to beat the shi... I mean, to pick him up gently with your pickaxe.
 
 things you can change:
-1) if you type "edit config.lua" you can expand the white_ and thrash_list. White list is all the targets he will dig (you can use part of the name like "ore" or whole names like "minecraft:ancient_debris"). Thrash list allows you to list items, you DON'T want to collect. Robot will throw them away during mining to save on trips to the chest on surface (this option is still not tested. I once again don't have access to Minecraft, but I want to preapre all the files on github already so it's easier to install it for me later)
+1) if you type "edit config.lua" you can expand the white_list. White list is all the targets he will dig (you can use part of the name like "ore" or whole names like "minecraft:ancient_debris"). If option is enabled, everything that is not on whitelist will be throwed away when clearing inventory underground
 2) max_fuel - is just the limit the turtle will use while refueling. It's in place to save some of that precious black gold people call coal.
 3) max_movement_retry_amount - it's used in code. After that many failed attmepts in movement (f. ex. there is unbreakable block in front, or way too much gravel) the robot will go into emergency mode
 4) empty_thrash - this option allows you to enable/disable (currently experimental) option to thorw the thrash away while digging to save the trips to chest
