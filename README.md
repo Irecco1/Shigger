@@ -36,7 +36,8 @@ TODO:
 4) make better UI
 
 # INSTALATION
-<Here will be a link to copy to download the whole program in one go, but I first need to learn how to do it. Shouldn't take me too long. In the meantime, you can just use the files on your own, either by pasting them into pastebin or copying them by hand or rewriting them, whatever floats your boat>
+Just use this command in your turtle:
+wget https://raw.githubusercontent.com/Irecco1/Shigger/refs/heads/main/install.lua install.lua install
 
 Okay, I guess that's everything, I am not sorry for wasteing your time here, and if you use this project, I hope it will give you enough resources to compensate the headache you probably got while reading it
 
