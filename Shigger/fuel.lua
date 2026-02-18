@@ -10,7 +10,7 @@ local fuel = {}
 
 local skip_fuel_check = false
 local movementgoTo
-local max_fuel = state.max_fuel
+local max_fuel = config.max_fuel
 
 -- =====================
 -- PRIVATE
@@ -78,5 +78,6 @@ end
 function fuel.checkFuelSkip()
     return skip_fuel_check
 end
+
 
 return fuel
