@@ -45,7 +45,7 @@ and everything should be done!
 (if it doesn't work, I will try to fix it later, because I can't test it at the moment)
 
 
-Okay, I guess that's everything, I am not sorry for wasteing your time here, and if you use this project, I hope it will give you enough resources to compensate the headache you probably got while reading it
+Okay, I guess that's everything, I am not sorry for wasting your time here, and if you use this project, I hope it will give you enough resources to compensate the headache you probably got while reading it
 
 I am also still learning the github, so pardon me for not making it easily accessible at the moment ^^"
 
