@@ -1,3 +1,6 @@
+Description is a little outdated, some things are not written as they should be. I will be updating it in the near future, when I manage to test if everything is working
+~ Irecco, 2026.02.19 12:58
+
 # Shigger
 A simple shitty digger in CC Tweaked using Advanced Peripherals Geo scanner to mine all ores from surface to bedrock, designed especially for All the Mods 10 modpack.
 
