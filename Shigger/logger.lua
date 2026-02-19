@@ -24,3 +24,5 @@ function logger.log(text)
     file.writeLine(text)
     file.close()
 end
+
+return logger
