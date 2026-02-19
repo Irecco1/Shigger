@@ -42,34 +42,29 @@ function inventory.checkInventory()
         if config.debug_logger then logger.log("Inventory: slot 16 item name: "..turtle.getItemDetail(16).name) end -- LOGGING INFO - DEBUG OPTION
         -- first, try to throw away all the thrash
         if config.empty_thrash then
-            local thrash_exists = false
             for i=2, 16 do
                 if config.debug_logger then logger.log("Inventory: looking for thrash in slot "..i) end -- LOGGING INFO - DEBUG OPTION
                 for _, thrash in ipairs(thrash_list) do
-                    local _, item_name = turtle.getItemDetail(i)
+                    local item_name = turtle.getItemDetail(i)
                     if item_name == thrash then
                         if config.debug_logger then logger.log("Inventory: found thrash "..item_name..", while looking for tag: "..thrash) end -- LOGGING INFO - DEBUG OPTION
                         turtle.select(i)
                         turtle.drop()
-                        thrash_exists = true
                         break
                     end
                 end
             end
             turtle.select(1)
-            if thrash_exists then
-                -- we need to clear the 16th slot if it's not thrash. because otherwise the function will loop
-                if turtle.getItemDetail(16) then
-                    for i=2, 15 do
-                        if not turtle.getItemDetail(i) then
-                            turtle.select(16)
-                            turtle.transferTo(i)
-                            turtle.select(1)
-                            break
-                        end
+            -- we need to clear the 16th slot if it's not thrash. because otherwise the function will loop
+            for i=2, 15 do
+                if not turtle.getItemDetail(i) and turtle.getItemDetail(16) then
+                    turtle.select(16)
+                    if not turtle.transferTo(i) then
+                        error("Couldn't move an item from slot 16")
                     end
+                    turtle.select(1)
+                    return
                 end
-                return
             end
         end
 
