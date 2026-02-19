@@ -34,41 +34,38 @@ function inventory.setMovementTurnTo(func)
     movementturnTo = func
 end
 
+function inventory.throwAwayThrash()
+if config.empty_thrash then
+        for i=2, 16 do
+            for _, thrash in ipairs(thrash_list) do
+                local item_name = turtle.getItemDetail(i).name
+                if item_name == thrash then
+                    if config.debug_logger then logger.log("Inventory: found thrash "..item_name..", while looking for tag: "..thrash) end -- LOGGING INFO - DEBUG OPTION
+                    turtle.select(i)
+                    turtle.drop()
+                    break
+                end
+            end
+        end
+        turtle.select(1)
+        -- we need to clear the 16th slot if it's not thrash. because otherwise the function will loop
+        for i=2, 15 do
+            if not turtle.getItemDetail(i) and turtle.getItemDetail(16) then
+                turtle.select(16)
+                if not turtle.transferTo(i) then
+                    error("Couldn't move an item from slot 16")
+                end
+                turtle.select(1)
+            end
+        end
+    end
+end
 
 function inventory.checkInventory()
     -- in the future, i will add the possibility to throw away cobble and other thrash to save trips back to surface
     -- check if last slot has any items
     if turtle.getItemCount(16) >= 1 then
-        if config.debug_logger then logger.log("Inventory: slot 16 item name: "..turtle.getItemDetail(16).name) end -- LOGGING INFO - DEBUG OPTION
-        -- first, try to throw away all the thrash
-        if config.empty_thrash then
-            for i=2, 16 do
-                if config.debug_logger then logger.log("Inventory: looking for thrash in slot "..i) end -- LOGGING INFO - DEBUG OPTION
-                for _, thrash in ipairs(thrash_list) do
-                    local item_name = turtle.getItemDetail(i).name
-                    if item_name == thrash then
-                        if config.debug_logger then logger.log("Inventory: found thrash "..item_name..", while looking for tag: "..thrash) end -- LOGGING INFO - DEBUG OPTION
-                        turtle.select(i)
-                        turtle.drop()
-                        break
-                    end
-                end
-            end
-            turtle.select(1)
-            -- we need to clear the 16th slot if it's not thrash. because otherwise the function will loop
-            for i=2, 15 do
-                if not turtle.getItemDetail(i) and turtle.getItemDetail(16) then
-                    turtle.select(16)
-                    if not turtle.transferTo(i) then
-                        error("Couldn't move an item from slot 16")
-                    end
-                    turtle.select(1)
-                    return
-                end
-            end
-        end
-
-        -- if no thrash was detected, then go back to chest and empty invenotry
+        -- go back to chest and empty invenotry
         movementgoTo({x=0, y=state.getPosition().y+5, z=0})
         movementgoTo({x=0, y=0, z=0})
         -- turn to chest
@@ -95,4 +92,3 @@ function inventory.emptyInventory()
 end
 
 return inventory
-
