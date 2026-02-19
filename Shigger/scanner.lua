@@ -25,9 +25,9 @@ local function getScanner()
     return device
 end
 
-local function saveSpecialOre(list, block)
+local function saveSpecialOre(block)
     local robot_position = state.getPosition()
-    table.insert(list, {name=block.name, x=block.x, y=(block.y + robot_position.y), z=block.z})
+    table.insert(special_ores, {name=block.name, x=block.x, y=(block.y + robot_position.y), z=block.z})
 end
 
 
@@ -56,7 +56,7 @@ function scanner.scan()
                     if config.debug_logger then logger.log("Scanner: "..block.name.." at: x="..block.x..", y="..block.y..", z="..block.z) end -- LOGGING INFO - DEBUG OPTION
                     if block.name:find("allthemodium", 1, true) or block.name:find("vibranium", 1, true) or block.name:find("unobtanium", 1, true) then
                         if config.debug_logger then logger.log("Scanner: found special ore: "..block.name) end  -- LOGGING INFO - DEBUG OPTION
-                        saveSpecialOre(special_ores, block)
+                        saveSpecialOre(block)
                         break
                     else
                         table.insert(target_list, {x=block.x, y=(block.y + robot_position.y), z=block.z})
@@ -75,12 +75,11 @@ function scanner.isBedrockFound()
     
     for _, v in ipairs(block_list) do
         if v.name == "minecraft:bedrock" then
-            if config.debug_logger then logger.log("Scanner: bedrock found") end -- LOGGING INFO - DEBUG OPTION
             local block_list = device.scan(8)
             for _, block in ipairs(block_list) do
                 for _, tag in ipairs(white_list) do
                     if block.name:find(tag, 1, true) then
-                        saveSpecialOre(special_ores, {block.name, block.x, block.y, block.z})
+                        saveSpecialOre({block.name, block.x, block.y, block.z})
                         break
                     end
                 end
