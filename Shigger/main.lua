@@ -34,6 +34,7 @@ local function saveUnminedBlocks(list)
 end
 
 fuel.setMovementGoTo(movement.goTo)
+inventory.setMovementGoTo(movement.goTo)
 
 -- =====================
 -- MAIN LOGIC
@@ -85,9 +86,6 @@ local function main()
 
         -- for each sorted target in list, go there
         for _, target in ipairs(targets) do
-
-            -- if inventory is full, before movement go and empty the inventory
-            inventory.checkInventory()
 
             -- this goes to the exact location of the target + if the target is right beside robot, mine it without moving
             digger.dig(target)
