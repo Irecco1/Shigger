@@ -38,7 +38,8 @@ function inventory.throwAwayThrash()
 if config.empty_thrash then
         for i=2, 16 do
             for _, thrash in ipairs(thrash_list) do
-                local item_name = turtle.getItemDetail(i).name
+                local item_name
+                if turtle.getItemDetail(i) then item_name = turtle.getItemDetail(i).name end
                 if item_name == thrash then
                     if config.debug_logger then logger.log("Inventory: found thrash "..item_name..", while looking for tag: "..thrash) end -- LOGGING INFO - DEBUG OPTION
                     turtle.select(i)
