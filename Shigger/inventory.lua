@@ -68,7 +68,7 @@ function inventory.checkInventory()
         end
 
         -- if no thrash was detected, then go back to chest and empty invenotry
-        movement.goTo({x=0, y=state.getPosition().y, z=0})
+        movement.goTo({x=0, y=state.getPosition().y+5, z=0})
         movement.goTo({x=0, y=0, z=0})
         -- turn to chest
         movement.turnTo(2)
@@ -82,7 +82,7 @@ end
 
 function inventory.emptyInventory()
     -- empty inventory, first slot (coal) included
-    movement.goTo({x=0, y=state.getPosition().y, z=0})
+    movement.goTo({x=0, y=state.getPosition().y+5, z=0})
     movement.goTo({x=0, y=0, z=0})
     movement.turnTo(2)
     for i=1, 16 do
@@ -90,6 +90,7 @@ function inventory.emptyInventory()
             turtle.drop()
     end
     turtle.select(1)
+    movement.turnTo(0)
 end
 
 return inventory
