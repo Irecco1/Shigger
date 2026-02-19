@@ -4,6 +4,7 @@ local state = require("state")
 local config = require("config")
 local fuel = require("fuel")
 local logger = require("logger")
+local inventory = require("inventory")
 
 local movement = {}
 
@@ -35,6 +36,7 @@ function movement.goForward()
             if not fuel.checkFuelSkip() then
                 fuel.checkFuelLeft() -- will refuel in fuel.lua
             end
+            inventory.checkInventory()
             return
         end
         turtle.dig()
