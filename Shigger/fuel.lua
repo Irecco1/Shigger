@@ -22,7 +22,7 @@ local function getCurrentDepth()
 end
 
 local function refuel(max_value)
-    while turtle.getFuelLevel() < max_value and turtle.getItemCount(1) > 1 do
+    while turtle.getFuelLevel() < max_value and (turtle.getItemCount(1) or 0) > 1 do
         turtle.refuel(1)
     end
 end
@@ -80,5 +80,6 @@ end
 function fuel.checkFuelSkip()
     return skip_fuel_check
 end
+
 
 return fuel
