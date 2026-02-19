@@ -89,6 +89,7 @@ end
 
 function movement.goUp()
     turtle.digUp()
+    inventory.throwAwayThrash()
     for i=1,retry_amount do
         if turtle.up() then
             state.updatePosition("up")
@@ -105,6 +106,7 @@ end
 
 function movement.goDown()
     turtle.digDown()
+    inventory.throwAwayThrash()
     for i=1,retry_amount do
         if turtle.down() then
             state.updatePosition("down")
