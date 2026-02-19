@@ -37,7 +37,7 @@ function movement.goForward()
             if not fuel.checkFuelSkip() then
                 fuel.checkFuelLeft() -- will refuel in fuel.lua
             end
-            inventory.checkInventory()
+            --inventory.checkInventory()
             return
         end
         turtle.dig()
@@ -282,3 +282,4 @@ function movement.goTo(target_position)
 end
 
 return movement
+
