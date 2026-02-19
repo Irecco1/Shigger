@@ -51,7 +51,6 @@ function inventory.checkInventory()
             if thrash_exists then
                 -- we need to clear the 16th slot if it's not thrash. because otherwise the function will loop
                 if turtle.getItemDetail(16) then
-                    if config.debug_logger then logger.log("Inventory: after cleaning slot 16 is "..turtle.getItemDetail(16)) end -- LOGGING INFO - DEBUG OPTION
                     for i=2, 15 do
                         if not turtle.getItemDetail(i) then
                             if config.debug_logger then logger.log("Inventory: slot "..i.."is "..turtle.getItemDetail(i).." (should be nil)") end -- LOGGING INFO - DEBUG OPTION
