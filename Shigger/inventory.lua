@@ -35,20 +35,18 @@ function inventory.setMovementTurnTo(func)
 end
 
 function inventory.throwAwayThrash()
-if config.empty_thrash then
+if config.empty_thrash and turtle.getItemCount(16) > 0 then
         for i=2, 16 do
             for _, thrash in ipairs(thrash_list) do
                 local item_name
                 if turtle.getItemDetail(i) then item_name = turtle.getItemDetail(i).name end
                 if item_name == thrash then
-                    if config.debug_logger then logger.log("Inventory: found thrash "..item_name..", while looking for tag: "..thrash) end -- LOGGING INFO - DEBUG OPTION
                     turtle.select(i)
                     turtle.drop()
                     break
                 end
             end
         end
-        turtle.select(1)
         -- we need to clear the 16th slot if it's not thrash. because otherwise the function will loop
         for i=2, 15 do
             if not turtle.getItemDetail(i) and turtle.getItemDetail(16) then
@@ -56,7 +54,6 @@ if config.empty_thrash then
                 if not turtle.transferTo(i) then
                     error("Couldn't move an item from slot 16")
                 end
-                turtle.select(1)
             end
         end
     end
