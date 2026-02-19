@@ -3,7 +3,7 @@ return {
         -- the name of the block must contain one of these. Here you can add full names or part of the names as showed below:
         "ore",
         "minecraft:ancient_debris",
-        "runic_deepslate",
+        "forbidden_arcanus:runic_deepslate",
     },
     max_fuel = 2000,
     max_movement_retry_amount = 10,
@@ -39,6 +39,7 @@ return {
 -- =====================
 -- PUBLIC API
 -- =====================
+
 
 
 
