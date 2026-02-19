@@ -15,6 +15,9 @@ return {
         "minecraft:dirt",
         "minecraft:sand",
         "minecraft:tuff",
+        "minecraft:granite",
+        "minecraft:andesite",
+        "minecraft:diorite",
     },
     debug_logger = true,
 }
@@ -40,6 +43,7 @@ return {
 -- =====================
 -- PUBLIC API
 -- =====================
+
 
 
 
