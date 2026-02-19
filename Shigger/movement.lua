@@ -10,6 +10,7 @@ local movement = {}
 -- local variables
 
 local retry_amount = config.max_movement_retry_amount
+local found_bedrock = false
 
 
 -- =====================
@@ -25,6 +26,10 @@ local retry_amount = config.max_movement_retry_amount
 function movement.goForward()
     turtle.dig()
     for i=1,retry_amount do
+        if turtle.inspect().name == "minecraft:bedrock" then
+            found_bedrock = true
+            return
+        end
         if turtle.forward() then
             state.updatePosition("forward")
             if not fuel.checkFuelSkip() then
@@ -223,6 +228,10 @@ function movement.goTo(target_position)
 
     -- next, the robot will go to correct z
     -- If the target is North from robot
+
+    if found_bedrock then
+        return
+    end
     if state.getPosition().z > target_position.z then
         movement.turnTo(0)
     end

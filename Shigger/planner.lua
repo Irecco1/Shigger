@@ -3,6 +3,7 @@
 local config = require("config")
 local state = require("state")
 local logger = require("logger")
+local scanner = require("scanner")
 
 local planner = {}
 
@@ -29,8 +30,8 @@ end
 -- it should create the list using greedy Manhattan search: find the closest target (smallest |dx| + |dy| + |dz| ), then starting from the position of that block,
 -- again find the closest one to that position and again, and again, and until all targets has bees assigned
 
-function planner.makePlan(targets)
-    local target_list_unsorted = targets
+function planner.makePlan()
+    local target_list_unsorted = scanner.scan()
     local current_position = state.getPosition()
     local target_list_sorted = {}
 

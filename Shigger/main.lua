@@ -57,34 +57,63 @@ fuel.setMovementGoTo(movement.goTo)
     --]]
 
 local function main()
+    -- enable logging if config is true
     if config.debug_logger then
         local file = fs.open("Logs.txt", "w")
         file.writeLine("Logging started...")
         file.close()
     end
+    -- first refuel with coal from player
     fuel.manualRefuel()
+
+    -- set the current depth to control scan position in the future
     local depth = 0
+
+    -- main loop
     while true do
+
+        -- first checks if the scan returned bedrock
         if scanner.isBedrockFound() then
             if config.debug_logger then logger.log("Main: reached the end, going back to home") end -- LOGGING INFO - DEBUG OPTION
+
+            -- go out of the loop
             break
         end
-        local scan_list = scanner.scan()
-        local targets = planner.makePlan(scan_list)
+
+        -- planner uses scanner to get the list of all target blocks from whitelist, and sort it from closes to furthest
+        local targets = planner.makePlan()
+
+        -- for each sorted target in list, go there
         for _, target in ipairs(targets) do
-            digger.dig(target)
+
+            -- if inventory is full, before movement go and empty the inventory
             inventory.checkInventory()
+
+            -- this goes to the exact location of the target + if the target is right beside robot, mine it without moving
+            digger.dig(target)
+
+            -- another check for bedrock to be double safe, this time if movement detects bedrock in front of the robot
+            if movement.found_bedrock then
+
+                -- go out of the loop - finish digging
+                break
+            end
         end
+
+        -- go to the correct place for the next scan
         depth = depth -8
         movement.goTo({x=0, y=depth, z=0})
     end
+
+    -- goes back to chest and empty inventory
     inventory.emptyInventory()
 
+    -- create a .txt file with all ores that couldn't be mined (everything close to bedrock + special ores from alltheores)
     saveUnminedBlocks(scanner.getSPecialOresList())
 end
 
 
-
+-- launch the main function in secure mode. In case of any robot error, go back to surface and empty inventory to chest
 local ok, err = pcall(main)
 if not ok then
     emergencyReturn(err)

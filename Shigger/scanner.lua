@@ -100,7 +100,6 @@ function scanner.getSPecialOresList()
             z=v.z,
         })
     end
-    special_ores = {}
     return list
 end
 

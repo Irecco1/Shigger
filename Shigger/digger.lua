@@ -4,6 +4,7 @@ local config = require("config")
 local movement = require("movement")
 local state = require("state")
 local logger = require("logger")
+local inventory = require("inventory")
 
 
 local digger = {}
@@ -29,7 +30,7 @@ local digger = {}
 function digger.dig(target)
     -- the target is just x,y,z table. If it's close, just dig it or rotate and dig if necessary. If it's far, use movement.goTo() to got there and dig it
     -- list of blocks to dig from planner will go to main, where it will take the list of blocks, and call digger.dig on every single one of them.
-
+    
     -- first check if the target is directly above or below the robot
     local robot_position = state.getPosition()
 

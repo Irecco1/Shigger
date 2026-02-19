@@ -14,6 +14,7 @@ return {
         "minecraft:gravel",
         "minecraft:dirt",
         "minecraft:sand",
+        "minecraft:tuff",
     },
     debug_logger = true,
 }
@@ -39,7 +40,6 @@ return {
 -- =====================
 -- PUBLIC API
 -- =====================
-
 
 
 
