@@ -1,7 +1,9 @@
 -- dig.lua
 
+local config = require("config")
 local movement = require("movement")
 local state = require("state")
+local logger = require("logger")
 
 
 local digger = {}

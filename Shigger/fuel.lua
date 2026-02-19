@@ -2,6 +2,7 @@
 
 local state = require("state")
 local config = require("config")
+local logger = require("logger")
 
 
 local fuel = {}
@@ -20,8 +21,8 @@ local function getCurrentDepth()
     return state.getPosition().y
 end
 
-local function refuel()
-    while turtle.getFuelLevel() < max_fuel and turtle.getItemCount(1) > 1 do
+local function refuel(max_value)
+    while turtle.getFuelLevel() < max_value and turtle.getItemCount(1) > 1 do
         turtle.refuel(1)
     end
 end
@@ -55,7 +56,7 @@ function fuel.checkFuelLeft()
             while turtle.getFuelLevel() < max_fuel do
                 print("OUT OF FUEL! Insert more coal to slot 1 and press ENTER.")
                 local input = read()
-                refuel()
+                refuel(max_fuel)
             end
             stopSkippingFuelCheck()
             return
@@ -67,17 +68,17 @@ end
 function fuel.manualRefuel()
     print("Insert fuel, must be coal, to slot 1 and press ENTER.")
     local input = read()
-    refuel()
+    refuel(turtle.getFuelLimit())
     while turtle.getFuelLevel() < max_fuel do
         print("Not enough fuel. Please insert more coal (preferably at once) and press enter")
         local input = read()
-        refuel()
+        refuel(turtle.getFuelLimit())
     end
+    if config.debug_logger then logger.log("Fuel: final fuel: "..turtle.getFuelLevel()) end
 end
 
 function fuel.checkFuelSkip()
     return skip_fuel_check
 end
-
 
 return fuel

@@ -3,6 +3,7 @@
 local state = require("state")
 local config = require("config")
 local fuel = require("fuel")
+local logger = require("logger")
 
 local movement = {}
 

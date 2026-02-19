@@ -1,5 +1,8 @@
 -- state.lua
 
+local config = require("config")
+local logger = require("logger")
+
 local state = {}
 
 -- local variables

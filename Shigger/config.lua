@@ -3,22 +3,25 @@ return {
         -- the name of the block must contain one of these. Here you can add full names or part of the names as showed below:
         "ore",
         "minecraft:ancient_debris",
+        "runic_deepslate",
     },
     max_fuel = 2000,
     max_movement_retry_amount = 10,
-    empty_thrash = false,
+    empty_thrash = true,
     thrash_list = {
         "minecraft:cobblestone",
         "minecraft:deepslate",
-        "minecfraft:gravel",
+        "minecraft:gravel",
         "minecraft:dirt",
         "minecraft:sand",
     },
+    debug_logger = true,
 }
 
 
 
 -- template:
+-- if config.debug_logger then logger.log("PLACEHOLDER") end
 
 -- template.lua
 

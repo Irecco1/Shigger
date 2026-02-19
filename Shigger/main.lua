@@ -8,6 +8,7 @@ local movement = require("movement")
 local planner = require("planner")
 local scanner = require("scanner")
 local state = require("state")
+local logger = require("logger")
 
 
 local function emergencyReturn(err)
@@ -56,10 +57,16 @@ fuel.setMovementGoTo(movement.goTo)
     --]]
 
 local function main()
+    if config.debug_logger then
+        local file = fs.open("Logs.txt", "w")
+        file.writeLine("Logging started...")
+        file.close()
+    end
     fuel.manualRefuel()
     local depth = 0
     while true do
         if scanner.isBedrockFound() then
+            if config.debug_logger then logger.log("Main: reached the end, going back to home") end -- LOGGING INFO - DEBUG OPTION
             break
         end
         local scan_list = scanner.scan()
@@ -81,5 +88,4 @@ end
 local ok, err = pcall(main)
 if not ok then
     emergencyReturn(err)
-
 end

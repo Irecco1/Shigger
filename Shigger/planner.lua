@@ -1,7 +1,8 @@
 -- planner.lua
 
-local scanner = require("scanner")
+local config = require("config")
 local state = require("state")
+local logger = require("logger")
 
 local planner = {}
 
