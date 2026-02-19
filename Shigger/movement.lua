@@ -26,6 +26,7 @@ local found_bedrock = false
 
 function movement.goForward()
     turtle.dig()
+    inventory.throwAwayThrash()
     for i=1,retry_amount do
         local _, block_in_front = turtle.inspect()
         if block_in_front.name == "minecraft:bedrock" then
@@ -37,7 +38,6 @@ function movement.goForward()
             if not fuel.checkFuelSkip() then
                 fuel.checkFuelLeft() -- will refuel in fuel.lua
             end
-            --inventory.checkInventory()
             return
         end
         turtle.dig()
@@ -282,4 +282,3 @@ function movement.goTo(target_position)
 end
 
 return movement
-
