@@ -45,7 +45,7 @@ function inventory.checkInventory()
             for i=2, 16 do
                 if config.debug_logger then logger.log("Inventory: looking for thrash in slot "..i) end -- LOGGING INFO - DEBUG OPTION
                 for _, thrash in ipairs(thrash_list) do
-                    local item_name = turtle.getItemDetail(i)
+                    local item_name = turtle.getItemDetail(i).name
                     if item_name == thrash then
                         if config.debug_logger then logger.log("Inventory: found thrash "..item_name..", while looking for tag: "..thrash) end -- LOGGING INFO - DEBUG OPTION
                         turtle.select(i)
@@ -95,3 +95,4 @@ function inventory.emptyInventory()
 end
 
 return inventory
+
