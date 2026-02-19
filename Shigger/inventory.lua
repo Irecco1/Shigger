@@ -46,7 +46,7 @@ function inventory.checkInventory()
             for i=2, 16 do
                 if config.debug_logger then logger.log("Inventory: looking for thrash in slot "..i) end -- LOGGING INFO - DEBUG OPTION
                 for _, thrash in ipairs(thrash_list) do
-                    local item_name = turtle.getItemDetail(i).name
+                    local _, item_name = turtle.getItemDetail(i)
                     if item_name == thrash then
                         if config.debug_logger then logger.log("Inventory: found thrash "..item_name..", while looking for tag: "..thrash) end -- LOGGING INFO - DEBUG OPTION
                         turtle.select(i)
@@ -62,8 +62,6 @@ function inventory.checkInventory()
                 if turtle.getItemDetail(16) then
                     for i=2, 15 do
                         if not turtle.getItemDetail(i) then
-                            if config.debug_logger then logger.log("Inventory: slot "..i.."is "..turtle.getItemDetail(i).." (should be nil)") end -- LOGGING INFO - DEBUG OPTION
-                            if config.debug_logger then logger.log("Inventory: moving item "..turtle.getItemDetail(16).name.." from slot 16 to slot "..i) end -- LOGGING INFO - DEBUG OPTION
                             turtle.select(16)
                             turtle.transferTo(i)
                             turtle.select(1)
