@@ -8,5 +8,5 @@ shell.run("wget https://raw.githubusercontent.com/Irecco1/Shigger/refs/heads/mai
 shell.run("wget https://raw.githubusercontent.com/Irecco1/Shigger/refs/heads/main/Shigger/state.lua state.lua")
 shell.run("wget https://raw.githubusercontent.com/Irecco1/Shigger/refs/heads/main/Shigger/config.lua config.lua")
 shell.run("wget https://raw.githubusercontent.com/Irecco1/Shigger/refs/heads/main/Shigger/digger.lua digger.lua")
+shell.run("wget https://raw.githubusercontent.com/Irecco1/Shigger/refs/heads/main/Shigger/logger.lua logger.lua")
 print("Download complete! Now run the main file to start.")
-
