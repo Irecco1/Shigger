@@ -35,6 +35,7 @@ end
 
 fuel.setMovementGoTo(movement.goTo)
 inventory.setMovementGoTo(movement.goTo)
+inventory.setMovementTurnTo(movement.turnTo)
 
 -- =====================
 -- MAIN LOGIC
