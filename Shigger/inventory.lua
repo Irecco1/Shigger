@@ -9,6 +9,7 @@ local inventory = {}
 -- local variables
 
 local thrash_list = config.thrash_list
+local useful_items_counter = 0
 local movementgoTo
 local movementturnTo
 
@@ -35,16 +36,23 @@ function inventory.setMovementTurnTo(func)
 end
 
 function inventory.throwAwayThrash()
-if config.empty_thrash and turtle.getItemCount(16) > 0 then
+    if useful_items_counter >= 14 then return end
+    if config.empty_thrash and turtle.getItemCount(16) > 0 then
         for i=2, 16 do
+            local thrash_found = false
             for _, thrash in ipairs(thrash_list) do
                 local item_name
                 if turtle.getItemDetail(i) then item_name = turtle.getItemDetail(i).name end
                 if item_name == thrash then
                     turtle.select(i)
                     turtle.drop()
+                    thrash_found = true
                     break
                 end
+            end
+            if not thrash_found then
+                useful_items_counter = useful_items_counter +1
+                if useful_items_counter >= 14 then return end
             end
         end
         -- we need to clear the 16th slot if it's not thrash. because otherwise the function will loop
@@ -64,7 +72,7 @@ function inventory.checkInventory()
     -- check if last slot has any items
     if turtle.getItemCount(16) >= 1 then
         -- go back to chest and empty invenotry
-        movementgoTo({x=0, y=state.getPosition().y+5, z=0})
+        movementgoTo({x=0, y=state.getPosition().y, z=0})
         movementgoTo({x=0, y=0, z=0})
         -- turn to chest
         movementturnTo(2)
@@ -73,6 +81,7 @@ function inventory.checkInventory()
             turtle.drop()
         end
         turtle.select(1)
+        useful_items_counter = 0
     end
 end
 
@@ -86,6 +95,7 @@ function inventory.emptyInventory()
             turtle.drop()
     end
     turtle.select(1)
+    useful_items_counter = 0
     movementturnTo(0)
 end
 
