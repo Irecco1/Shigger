@@ -27,7 +27,8 @@ local found_bedrock = false
 function movement.goForward()
     turtle.dig()
     for i=1,retry_amount do
-        if turtle.inspect().name == "minecraft:bedrock" then
+        local _, block_in_front = turtle.inspect()
+        if block_in_front.name == "minecraft:bedrock" then
             found_bedrock = true
             return
         end
