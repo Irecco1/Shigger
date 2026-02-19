@@ -1,7 +1,6 @@
 -- inventory.lua
 
 local config = require("config")
-local movement = require("movement")
 local state = require("state")
 local logger = require("logger")
 
@@ -10,6 +9,8 @@ local inventory = {}
 -- local variables
 
 local thrash_list = config.thrash_list
+local movementgoTo
+local movementturnTo
 
 -- =====================
 -- PRIVATE
@@ -25,6 +26,14 @@ local thrash_list = config.thrash_list
 -- should be checking if the invrntory is full and if it is, then:
 -- 1) try to empty all tharsh_listed items (need to prepare a list of cobblestone, tuff, blackstone, dirst, gravel etc.)
 -- 2) if there is no thrash and inventory is full, go back to surface, empty to chest and go back
+
+function inventory.setMovementGoTo(func)
+    movementgoTo = func
+end
+function inventory.setMovementTurnTo(func)
+    movementturnTo = func
+end
+
 
 function inventory.checkInventory()
     -- in the future, i will add the possibility to throw away cobble and other thrash to save trips back to surface
@@ -67,10 +76,10 @@ function inventory.checkInventory()
         end
 
         -- if no thrash was detected, then go back to chest and empty invenotry
-        movement.goTo({x=0, y=state.getPosition().y+5, z=0})
-        movement.goTo({x=0, y=0, z=0})
+        movementgoTo({x=0, y=state.getPosition().y+5, z=0})
+        movementgoTo({x=0, y=0, z=0})
         -- turn to chest
-        movement.turnTo(2)
+        movementturnTo(2)
         for i=2, 16 do
             turtle.select(i)
             turtle.drop()
@@ -81,15 +90,15 @@ end
 
 function inventory.emptyInventory()
     -- empty inventory, first slot (coal) included
-    movement.goTo({x=0, y=state.getPosition().y+5, z=0})
-    movement.goTo({x=0, y=0, z=0})
-    movement.turnTo(2)
+    movementgoTo({x=0, y=state.getPosition().y+5, z=0})
+    movementgoTo({x=0, y=0, z=0})
+    movementturnTo(2)
     for i=1, 16 do
             turtle.select(i)
             turtle.drop()
     end
     turtle.select(1)
-    movement.turnTo(0)
+    movementturnTo(0)
 end
 
 return inventory
