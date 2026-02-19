@@ -10,7 +10,7 @@ return {
     empty_thrash = true,
     thrash_list = {
         "minecraft:cobblestone",
-        "minecraft:deepslate",
+        "minecraft:cobbled_deepslate",
         "minecraft:gravel",
         "minecraft:dirt",
         "minecraft:sand",
@@ -18,6 +18,9 @@ return {
         "minecraft:granite",
         "minecraft:andesite",
         "minecraft:diorite",
+        "create:crimsite",
+        "create:limestone",
+        "xycraft_world:kivi",
     },
     debug_logger = true,
 }
@@ -43,6 +46,7 @@ return {
 -- =====================
 -- PUBLIC API
 -- =====================
+
 
 
 
