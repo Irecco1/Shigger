@@ -80,4 +80,12 @@ function inventory.emptyInventory()
     movementturnTo(0)
 end
 
+function inventory.setMovementGoTo(func)
+    movementturnTo = func
+end
+
+function inventory.setMovementTurnTo(func)
+    movementgoTo = func
+end
+
 return inventory
