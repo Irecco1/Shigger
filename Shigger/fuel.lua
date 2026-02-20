@@ -81,5 +81,4 @@ function fuel.checkFuelSkip()
     return skip_fuel_check
 end
 
-
 return fuel
