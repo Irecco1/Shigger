@@ -91,9 +91,6 @@ local function main()
             -- this goes to the exact location of the target + if the target is right beside robot, mine it without moving
             digger.dig(target)
 
-            -- go back to chest if needed
-            inventory.checkInventory()
-
             -- another check for bedrock to be double safe, this time if movement detects bedrock in front of the robot
             if movement.found_bedrock then
 

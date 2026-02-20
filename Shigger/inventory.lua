@@ -8,8 +8,6 @@ local inventory = {}
 
 -- local variables
 
-local thrash_list = config.thrash_list
-local useful_items_counter = 0
 local movementgoTo
 local movementturnTo
 
@@ -36,58 +34,37 @@ function inventory.setMovementTurnTo(func)
 end
 
 function inventory.throwAwayThrash()
-    if useful_items_counter >= 14 then return end
-    if config.empty_thrash and turtle.getItemCount(16) > 0 then
-        for i=2, 16 do
-            local thrash_found = false
-            for _, thrash in ipairs(thrash_list) do
-                local item_name
-                if turtle.getItemDetail(i) then item_name = turtle.getItemDetail(i).name end
-                if item_name == thrash then
-                    turtle.select(i)
-                    turtle.drop()
-                    thrash_found = true
-                    break
-                end
-            end
-            if not thrash_found then
-                useful_items_counter = useful_items_counter +1
-                if useful_items_counter >= 14 then return end
+    local thrash_list = {}
+    for i=2, 16 do
+        for _, thrash_name in ipairs(config.thrash_list) do
+            local item_name = turtle.getItemDetail(i).name
+            if turtle.getItemDetail(i) and item_name == thrash_name then
+                table.insert(thrash_list, i)
             end
         end
-        if useful_items_counter < 14 then
-            useful_items_counter = 0
+    end
+    if #thrash_list > 1 then
+        for _, slot_number in ipairs(thrash_list) do
+            turtle.select(slot_number)
+            turtle.drop()
         end
         turtle.select(1)
-        -- we need to clear the 16th slot if it's not thrash. because otherwise the function will loop
-        for i=2, 15 do
-            if not turtle.getItemDetail(i) and turtle.getItemDetail(16) then
-                turtle.select(16)
-                if not turtle.transferTo(i) then
-                    error("Couldn't move an item from slot 16")
-                end
-            end
-        end
-        turtle.select(1)
+    else
+        inventory.checkInventory()
     end
 end
 
 function inventory.checkInventory()
-    -- in the future, i will add the possibility to throw away cobble and other thrash to save trips back to surface
-    -- check if last slot has any items
-    if turtle.getItemCount(16) >= 1 then
-        -- go back to chest and empty invenotry
-        movementgoTo({x=0, y=state.getPosition().y, z=0})
-        movementgoTo({x=0, y=0, z=0})
-        -- turn to chest
-        movementturnTo(2)
-        for i=2, 16 do
-            turtle.select(i)
-            turtle.drop()
-        end
-        turtle.select(1)
-        useful_items_counter = 0
+    -- go back to chest and empty invenotry
+    movementgoTo({x=0, y=state.getPosition().y, z=0})
+    movementgoTo({x=0, y=0, z=0})
+    -- turn to chest
+    movementturnTo(2)
+    for i=2, 16 do
+        turtle.select(i)
+        turtle.drop()
     end
+    turtle.select(1)
 end
 
 function inventory.emptyInventory()
