@@ -37,6 +37,8 @@ function inventory.throwAwayThrash()
     local thrash_list = {}
     for i=2, 16 do
         for _, thrash_name in ipairs(config.thrash_list) do
+            print("slot: "..i)
+            print("details: "..turtle.getItemDetail(i))
             local item_name = turtle.getItemDetail(i).name
             if turtle.getItemDetail(i) and item_name == thrash_name then
                 table.insert(thrash_list, i)
