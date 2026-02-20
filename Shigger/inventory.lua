@@ -36,6 +36,9 @@ end
 function inventory.throwAwayThrash()
     local thrash_list = {}
     for i=2, 16 do
+        if turtle.getItemDetail(i) == nil then
+            return
+        end
         for _, thrash_name in ipairs(config.thrash_list) do
             if turtle.getItemDetail(i) then
                 local item_name = turtle.getItemDetail(i).name
