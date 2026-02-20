@@ -55,6 +55,10 @@ function inventory.throwAwayThrash()
                 if useful_items_counter >= 14 then return end
             end
         end
+        if useful_items_counter < 14 then
+            useful_items_counter = 0
+        end
+        turtle.select(1)
         -- we need to clear the 16th slot if it's not thrash. because otherwise the function will loop
         for i=2, 15 do
             if not turtle.getItemDetail(i) and turtle.getItemDetail(16) then
@@ -64,6 +68,7 @@ function inventory.throwAwayThrash()
                 end
             end
         end
+        turtle.select(1)
     end
 end
 
