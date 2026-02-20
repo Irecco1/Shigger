@@ -26,7 +26,7 @@ local found_bedrock = false
 
 function movement.goForward()
     turtle.dig()
-    inventory.throwAwayThrash()
+    if not inventory.goToChestCheck() then inventory.throwAwayThrash() end
     for i=1,retry_amount do
         local _, block_in_front = turtle.inspect()
         if block_in_front.name == "minecraft:bedrock" then
@@ -89,7 +89,7 @@ end
 
 function movement.goUp()
     turtle.digUp()
-    inventory.throwAwayThrash()
+    if not inventory.goToChestCheck() then inventory.throwAwayThrash() end
     for i=1,retry_amount do
         if turtle.up() then
             state.updatePosition("up")
@@ -106,7 +106,7 @@ end
 
 function movement.goDown()
     turtle.digDown()
-    inventory.throwAwayThrash()
+    if not inventory.goToChestCheck() then inventory.throwAwayThrash() end
     for i=1,retry_amount do
         if turtle.down() then
             state.updatePosition("down")
