@@ -18,6 +18,7 @@ local inventory_emptying = false
 
 
 
+
 -- =====================
 -- PUBLIC API
 -- =====================
@@ -86,6 +87,10 @@ end
 
 function inventory.setMovementTurnTo(func)
     movementgoTo = func
+end
+
+function inventory.goToChestCheck()
+    return inventory_emptying
 end
 
 return inventory
