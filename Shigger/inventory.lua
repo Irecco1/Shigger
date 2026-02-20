@@ -10,11 +10,11 @@ local inventory = {}
 
 local movementgoTo
 local movementturnTo
+local inventory_emptying = false
 
 -- =====================
 -- PRIVATE
 -- =====================
-
 
 
 
@@ -26,19 +26,11 @@ local movementturnTo
 -- 1) try to empty all tharsh_listed items (need to prepare a list of cobblestone, tuff, blackstone, dirst, gravel etc.)
 -- 2) if there is no thrash and inventory is full, go back to surface, empty to chest and go back
 
-function inventory.setMovementGoTo(func)
-    movementgoTo = func
-end
-function inventory.setMovementTurnTo(func)
-    movementturnTo = func
-end
-
 function inventory.throwAwayThrash()
+    if inventory_emptying then return end
     local thrash_list = {}
     for i=2, 16 do
-        if turtle.getItemDetail(i) == nil then
-            return
-        end
+        if turtle.getItemDetail(i) == nil then return end
         for _, thrash_name in ipairs(config.thrash_list) do
             if turtle.getItemDetail(i) then
                 local item_name = turtle.getItemDetail(i).name
@@ -56,7 +48,9 @@ function inventory.throwAwayThrash()
         end
         turtle.select(1)
     else
+        inventory_emptying = true
         inventory.checkInventory()
+        inventory_emptying = false
     end
 end
 
@@ -83,7 +77,6 @@ function inventory.emptyInventory()
             turtle.drop()
     end
     turtle.select(1)
-    useful_items_counter = 0
     movementturnTo(0)
 end
 
