@@ -69,7 +69,7 @@ function inventory.throwAwayThrash()
                 end
             end
         end
-        turtle.select()
+        turtle.select(1)
 
         return
     end
@@ -120,3 +120,4 @@ function inventory.enableInventoryCheck()
 end
 
 return inventory
+
