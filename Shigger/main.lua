@@ -81,32 +81,27 @@ local function main()
             -- go out of the loop
             break
         end
-
         -- planner uses scanner to get the list of all target blocks from whitelist, and sort it from closes to furthest
         local targets = planner.makePlan()
-
         -- for each sorted target in list, go there
         for _, target in ipairs(targets) do
-
             -- this goes to the exact location of the target + if the target is right beside robot, mine it without moving
             digger.dig(target)
-
+            -- enable inventory check in case it was disabled for emptying
+            inventory.enableInventoryCheck()
             -- another check for bedrock to be double safe, this time if movement detects bedrock in front of the robot
             if movement.found_bedrock then
-
                 -- go out of the loop - finish digging
                 break
             end
         end
-
         -- go to the correct place for the next scan
         depth = depth -8
         movement.goTo({x=0, y=depth, z=0})
     end
-
     -- goes back to chest and empty inventory
     inventory.emptyInventory()
-
+    inventory.enableInventoryCheck()
     -- create a .txt file with all ores that couldn't be mined (everything close to bedrock + special ores from alltheores)
     saveUnminedBlocks(scanner.getSPecialOresList())
 end

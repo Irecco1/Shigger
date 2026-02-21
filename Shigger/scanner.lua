@@ -53,9 +53,7 @@ function scanner.scan()
         if block.y <= 0 then
             for _, tag in ipairs(white_list) do
                 if block.name:match(":(.+)"):find(tag, 1, true) then
-                    if config.debug_logger then logger.log("Scanner: "..block.name.." at: x="..block.x..", y="..block.y..", z="..block.z) end -- LOGGING INFO - DEBUG OPTION
                     if block.name:find("allthemodium", 1, true) or block.name:find("vibranium", 1, true) or block.name:find("unobtanium", 1, true) then
-                        if config.debug_logger then logger.log("Scanner: found special ore: "..block.name) end  -- LOGGING INFO - DEBUG OPTION
                         saveSpecialOre({name=block.name, x=block.x, y=block.y, z=block.z})
                         break
                     else

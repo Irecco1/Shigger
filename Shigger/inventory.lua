@@ -28,49 +28,72 @@ local inventory_emptying = false
 -- 2) if there is no thrash and inventory is full, go back to surface, empty to chest and go back
 
 function inventory.throwAwayThrash()
-    if inventory_emptying then return end
+    -- throws tharsh away while mining underground
+    -- if there is no free slots then throws thrash away
+    for i=2, 16 do
+        -- if any slot is free, return
+        if not turtle.getItemDetail(i) then
+            return
+        end
+    end
     local thrash_list = {}
     for i=2, 16 do
-        if turtle.getItemDetail(i) == nil then return end
-        for _, thrash_name in ipairs(config.thrash_list) do
-            if turtle.getItemDetail(i) then
-                local item_name = turtle.getItemDetail(i).name
-                if turtle.getItemDetail(i) and item_name == thrash_name then
-                    table.insert(thrash_list, i)
-                    break
-                end
+        -- if slot is not free, check if it is thrash
+        for _, thrash in ipairs(config.thrash_list) do
+            if turtle.getItemDetail(i).name == thrash then
+                -- if it is, add it's slot to thrash list
+                table.insert(thrash_list, i)
+                -- go out of the loop (config.thrash_list)
+                break
             end
         end
     end
+    -- after checking entire inventory and if there wasn't free slots (if there were, it would return) then check, if there is at least 2 thrash
+    -- if so, then throw it away and rearange items
+    -- if only 1 or 0 thrash detected, go back to chest and empty
     if #thrash_list > 1 then
+        -- throwing thrash away
         for _, slot_number in ipairs(thrash_list) do
             turtle.select(slot_number)
             turtle.drop()
         end
+        -- if thrash was thrown away, we need to organise inventory
+        -- go one by one slot and if it finds full slot right after empty, move the item from full to the empty
+        local item_moved = true
+        while item_moved do
+            item_moved = false
+            for i=2, 15 do
+                if turtle.getItemDetail(i) == nil and turtle.getItemDetail(i+1) ~= nil then
+                    turtle.select(i+1)
+                    turtle.transferTo(i)
+                    item_moved = true
+                end
+            end
+        end
         turtle.select(1)
-    else
-        inventory_emptying = true
-        inventory.checkInventory()
-        inventory_emptying = false
+        return
     end
-end
-
-function inventory.checkInventory()
-    -- go back to chest and empty invenotry
+    -- on the other hand, if length of thrash list was 1 or 0 and inventory is full, it is necessary to go to chest, while skipping inventory checks
+    local current_position = state.getPosition()
+    local current_direction = state.getDirection()
+    inventory_emptying = true
+    -- empty inventory, first slot (coal) excluded
     movementgoTo({x=0, y=state.getPosition().y, z=0})
     movementgoTo({x=0, y=0, z=0})
-    -- turn to chest
     movementturnTo(2)
     for i=2, 16 do
-        turtle.select(i)
-        turtle.drop()
+            turtle.select(i)
+            turtle.drop()
     end
     turtle.select(1)
+    movementgoTo(current_position)
+    movementturnTo(current_direction)
 end
 
 function inventory.emptyInventory()
+    inventory_emptying = true
     -- empty inventory, first slot (coal) included
-    movementgoTo({x=0, y=state.getPosition().y+5, z=0})
+    movementgoTo({x=0, y=state.getPosition().y, z=0})
     movementgoTo({x=0, y=0, z=0})
     movementturnTo(2)
     for i=1, 16 do
@@ -82,15 +105,18 @@ function inventory.emptyInventory()
 end
 
 function inventory.setMovementGoTo(func)
+    movementgoTo = func
+end
+function inventory.setMovementTurnTo(func)
     movementturnTo = func
 end
 
-function inventory.setMovementTurnTo(func)
-    movementgoTo = func
+function inventory.skipInventoryCheck()
+    return inventory_emptying
 end
 
-function inventory.goToChestCheck()
-    return inventory_emptying
+function inventory.enableInventoryCheck()
+    inventory_emptying = false
 end
 
 return inventory

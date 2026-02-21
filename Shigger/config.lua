@@ -28,7 +28,7 @@ return {
 
 
 -- template:
--- if config.debug_logger then logger.log("PLACEHOLDER") end
+-- if config.debug_logger then logger.log("PLACEHOLDER") end -- LOGGIN OPTION FOR DEBUGGING
 
 -- template.lua
 

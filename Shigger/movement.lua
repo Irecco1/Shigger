@@ -11,7 +11,6 @@ local movement = {}
 -- local variables
 
 local retry_amount = config.max_movement_retry_amount
-local found_bedrock = false
 
 
 -- =====================
@@ -26,13 +25,9 @@ local found_bedrock = false
 
 function movement.goForward()
     turtle.dig()
-    if not inventory.goToChestCheck() then inventory.throwAwayThrash() end
+    -- inventory check. If it was full, reenable it only after reaching new target
+    if not inventory.skipInventoryCheck() then inventory.throwAwayThrash() end
     for i=1,retry_amount do
-        local _, block_in_front = turtle.inspect()
-        if block_in_front.name == "minecraft:bedrock" then
-            found_bedrock = true
-            return
-        end
         if turtle.forward() then
             state.updatePosition("forward")
             if not fuel.checkFuelSkip() then
@@ -89,7 +84,8 @@ end
 
 function movement.goUp()
     turtle.digUp()
-    if not inventory.goToChestCheck() then inventory.throwAwayThrash() end
+    -- inventory check. If it was full, reenable it only after reaching new target
+    if not inventory.skipInventoryCheck() then inventory.throwAwayThrash() end
     for i=1,retry_amount do
         if turtle.up() then
             state.updatePosition("up")
@@ -106,7 +102,8 @@ end
 
 function movement.goDown()
     turtle.digDown()
-    if not inventory.goToChestCheck() then inventory.throwAwayThrash() end
+    -- inventory check. If it was full, reenable it only after reaching new target
+    if not inventory.skipInventoryCheck() then inventory.throwAwayThrash() end
     for i=1,retry_amount do
         if turtle.down() then
             state.updatePosition("down")
@@ -224,6 +221,7 @@ function movement.goTo(target_position)
 
 
     -- first, the robot goes to correct y level
+
     while target_position.y < state.getPosition().y do
         movement.goDown()
     end
@@ -233,10 +231,6 @@ function movement.goTo(target_position)
 
     -- next, the robot will go to correct z
     -- If the target is North from robot
-
-    if found_bedrock then
-        return
-    end
     if state.getPosition().z > target_position.z then
         movement.turnTo(0)
     end
