@@ -69,6 +69,7 @@ function inventory.throwAwayThrash()
                 end
             end
         end
+        turtle.select()
 
         return
     end
