@@ -58,19 +58,18 @@ function inventory.throwAwayThrash()
             turtle.drop()
         end
         -- if thrash was thrown away, we need to organise inventory
-        -- go one by one slot and if it finds full slot right after empty, move the item from full to the empty
-        local item_moved = true
-        while item_moved do
-            item_moved = false
-            for i=2, 15 do
-                if turtle.getItemDetail(i) == nil and turtle.getItemDetail(i+1) ~= nil then
-                    turtle.select(i+1)
-                    turtle.transferTo(i)
-                    item_moved = true
+        for i = 2, 15 do
+            if turtle.getItemDetail(i) == nil then
+                for j=16, 2, -1 do
+                    if turtle.getItemDetail(j) ~= nil and j > i then
+                        turtle.select(j)
+                        turtle.transferTo(i)
+                        break
+                    end
                 end
             end
         end
-        turtle.select(1)
+
         return
     end
     -- on the other hand, if length of thrash list was 1 or 0 and inventory is full, it is necessary to go to chest, while skipping inventory checks
