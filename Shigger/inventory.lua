@@ -70,7 +70,6 @@ function inventory.throwAwayThrash()
             end
         end
         turtle.select(1)
-
         return
     end
     -- on the other hand, if length of thrash list was 1 or 0 and inventory is full, it is necessary to go to chest, while skipping inventory checks
@@ -120,4 +119,3 @@ function inventory.enableInventoryCheck()
 end
 
 return inventory
-

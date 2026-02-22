@@ -76,8 +76,6 @@ local function main()
 
         -- first checks if the scan returned bedrock
         if scanner.isBedrockFound() then
-            if config.debug_logger then logger.log("Main: reached the end, going back to home") end -- LOGGING INFO - DEBUG OPTION
-
             -- go out of the loop
             break
         end

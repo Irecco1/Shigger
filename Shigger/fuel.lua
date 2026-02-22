@@ -61,7 +61,7 @@ function fuel.checkFuelLeft()
             stopSkippingFuelCheck()
             return
         end
-        refuel()
+        refuel(max_fuel)
     end
 end
 
