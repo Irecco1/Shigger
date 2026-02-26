@@ -23,6 +23,7 @@ return {
         "minecraft:netherrack",
         "xycraft_world:kivi",
         "zbyszek",
+        "minecraft:end_stone",
     },
     debug_logger = true,
 }
@@ -48,6 +49,7 @@ return {
 -- =====================
 -- PUBLIC API
 -- =====================
+
 
 
 
