@@ -48,7 +48,7 @@ inventory.setMovementTurnTo(movement.turnTo)
     3.1 scan the surrounding area and look for whitelist targets
     3.2 plan the target order using the scanner list
     3.3 dig each target
-    3.3.1 if inventory gets full after any dig action, use inventory.lua to either throw thrash away or go back to chest and then continue work
+    3.3.1 if inventory gets full after any dig action, use inventory.lua to either throw trash away or go back to chest and then continue work
     3.4 go back to x=0, z=0, y=-8 (using the scan point as the reference)
     3.5 dig 9 blocks down
     3.6 go back to 3.1 until bedrock detected

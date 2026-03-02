@@ -26,7 +26,7 @@ local retry_amount = config.max_movement_retry_amount
 function movement.goForward()
     turtle.dig()
     -- inventory check. If it was full, reenable it only after reaching new target
-    if not inventory.skipInventoryCheck() then inventory.throwAwayThrash() end
+    if not inventory.skipInventoryCheck() then inventory.throwAwayTrash() end
     for i=1,retry_amount do
         if turtle.forward() then
             state.updatePosition("forward")
@@ -85,7 +85,7 @@ end
 function movement.goUp()
     turtle.digUp()
     -- inventory check. If it was full, reenable it only after reaching new target
-    if not inventory.skipInventoryCheck() then inventory.throwAwayThrash() end
+    if not inventory.skipInventoryCheck() then inventory.throwAwayTrash() end
     for i=1,retry_amount do
         if turtle.up() then
             state.updatePosition("up")
@@ -103,7 +103,7 @@ end
 function movement.goDown()
     turtle.digDown()
     -- inventory check. If it was full, reenable it only after reaching new target
-    if not inventory.skipInventoryCheck() then inventory.throwAwayThrash() end
+    if not inventory.skipInventoryCheck() then inventory.throwAwayTrash() end
     for i=1,retry_amount do
         if turtle.down() then
             state.updatePosition("down")

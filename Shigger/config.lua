@@ -7,8 +7,8 @@ return {
     },
     max_fuel = 2000,
     max_movement_retry_amount = 10,
-    empty_thrash = true,
-    thrash_list = {
+    empty_trash = true,
+    trash_list = {
         "minecraft:cobblestone",
         "minecraft:cobbled_deepslate",
         "minecraft:gravel",
@@ -48,7 +48,6 @@ return {
 -- =====================
 -- PUBLIC API
 -- =====================
-
 
 
 
