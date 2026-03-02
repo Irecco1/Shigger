@@ -3,7 +3,7 @@ A simple shitty digger in CC Tweaked using Advanced Peripherals Geo scanner to m
 
 It was coded in around ~~5 days~~ 8 days (I hate debugging my stupid mistakes and typos). I will be honest, that I have not tested it fully yet, but everything should work. I hope.
 
-I haven't used artificual intelligence while writing this code and instead I used no intelligence at all
+I haven't used artifical intelligence while writing this code and instead I used no intelligence at all
 
 # HOW TO USE IT
 The program is quite simple although it needs some things correctly prepared. It was my first project in CC Tweaked and Lua and I don't really care about it being flawless.
