@@ -23,6 +23,7 @@ return {
         "minecraft:netherrack",
         "xycraft_world:kivi",
         "minecraft:end_stone",
+        "minecraft:blackstone",
     },
     debug_logger = true,
 }
