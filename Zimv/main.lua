@@ -73,7 +73,7 @@ local function main()
     -- check the saved position. if its 0, we have just started and continue as always.
     -- if its not 0, 0, 0, then we are underground, probably chunk got unloaded.
     -- in that case, move up to modulo of 8 from current position and jump to main loop
-    local saved_state = state.loadState()
+    local saved_state = state.getSavedState()
     if saved_state.position.x ~= 0 or saved_state.position.y ~= 0 or saved_state.position.z ~= 0 then
         underground_fail_safe = true
         local robot_position = state.getPosition()
