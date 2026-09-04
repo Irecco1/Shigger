@@ -60,6 +60,7 @@ returns unserialized table with position and rotation.
 local function loadState()
     if not fs.exists("state.txt") then
         local file = fs.open("state.txt", "w")
+        file.write(textutils.serialize({position={x=0, y=0, z=0}, rotation=0}))
         file.close()
     end
     local file = fs.open("state.txt", "r")
