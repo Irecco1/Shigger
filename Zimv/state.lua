@@ -58,6 +58,10 @@ returns unserialized table with position and rotation.
 {position={x=0, y=0, z=0}, direction=0}
 ]]--
 local function loadState()
+    if not fs.exists("state.txt") then
+        local file = fs.open("state.txt", "w")
+        file.close()
+    end
     local file = fs.open("state.txt", "r")
     local raw_data = file.readAll()
     file.close()
