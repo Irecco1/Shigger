@@ -9,6 +9,7 @@ shell.run("wget https://raw.githubusercontent.com/Irecco1/Zimv/refs/heads/main/Z
 shell.run("wget https://raw.githubusercontent.com/Irecco1/Zimv/refs/heads/main/Zimv/config.lua config.lua")
 shell.run("wget https://raw.githubusercontent.com/Irecco1/Zimv/refs/heads/main/Zimv/digger.lua digger.lua")
 shell.run("wget https://raw.githubusercontent.com/Irecco1/Zimv/refs/heads/main/Zimv/logger.lua logger.lua")
+shell.run("wget https://raw.githubusercontent.com/Irecco1/Zimv/refs/heads/main/Zimv/logger.lua startup")
 print("Download complete! Rebooting in 3 seconds...")
 sleep(3)
 os.reboot()
