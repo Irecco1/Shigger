@@ -45,7 +45,7 @@ function scanner.scan()
     -- should take a whitelist and search for everything on whitelist, no matter if its the full name or just a part of the name
 
     local target_list = {}
-    local block_list = device.scan(8)
+    local block_list = device.scanBlocks(8)
     local robot_position = state.getPosition()
 
     for _, block in ipairs(block_list) do
@@ -71,7 +71,7 @@ idea is when we find bedrock, we save the max depth we can go to.
 after reaching that depth, we will instantly stop the movement, scan for ores inside bedrock and proceed to end digging
 ]]--
 function scanner.isBedrockFound()
-    local block_list = device.scan(8)
+    local block_list = device.scanBlocks(8)
     local robot_position = state.getPosition()
     
     if max_depth > -1000000 then
