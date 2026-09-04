@@ -21,12 +21,9 @@ local max_depth = -1000000
 -- PRIVATE
 -- =====================
 
-local function getScanner()
-    local device = peripheral.find("geo_scanner")
-    if not device then
-        error("Geo scanner not found!")
-    end
-    return device
+local device = peripheral.find("geo_scanner")
+if not device then
+    error("Geo scanner not found!")
 end
 
 local function saveSpecialOre(block)
@@ -46,8 +43,6 @@ end
 function scanner.scan()
     -- should return a list with tables {x,y,z} of all points of interest
     -- should take a whitelist and search for everything on whitelist, no matter if its the full name or just a part of the name
-
-    local device = getScanner()
 
     local target_list = {}
     local block_list = device.scan(8)
@@ -76,7 +71,6 @@ idea is when we find bedrock, we save the max depth we can go to.
 after reaching that depth, we will instantly stop the movement, scan for ores inside bedrock and proceed to end digging
 ]]--
 function scanner.isBedrockFound()
-    local device = getScanner()
     local block_list = device.scan(8)
     local robot_position = state.getPosition()
     
