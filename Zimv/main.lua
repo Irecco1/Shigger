@@ -59,9 +59,25 @@ inventory.setMovementTurnTo(movement.turnTo)
     If at any point, the robot encounters an error, it should immidietely go back to surface
     --]]
 
+    
+local depth = 0
+
+-- check the saved position. if its 0, we have just started and continue as always.
+-- if its not 0, 0, 0, then we are underground, probably chunk got unloaded.
+-- in that case, move up to modulo of 8 from current position and jump to main loop
+local saved_state = state.getSavedState()
+if saved_state.position.x ~= 0 or saved_state.position.y ~= 0 or saved_state.position.z ~= 0 then
+    underground_fail_safe = true
+    local robot_position = state.getPosition()
+    local last_scan_position = robot_position.y + math.abs(robot_position.y)%8
+    movement.goTo({x=0, y=last_scan_position, z=0})
+    depth = last_scan_position
+end
+
+
 local function main()
     -- set the current depth to control scan position in the future
-    local depth = 0
+    
 
     -- enable logging if config is true
     if config.debug_logger then
@@ -70,17 +86,7 @@ local function main()
         file.close()
     end
 
-    -- check the saved position. if its 0, we have just started and continue as always.
-    -- if its not 0, 0, 0, then we are underground, probably chunk got unloaded.
-    -- in that case, move up to modulo of 8 from current position and jump to main loop
-    local saved_state = state.getSavedState()
-    if saved_state.position.x ~= 0 or saved_state.position.y ~= 0 or saved_state.position.z ~= 0 then
-        underground_fail_safe = true
-        local robot_position = state.getPosition()
-        local last_scan_position = robot_position.y + math.abs(robot_position.y)%8
-        movement.goTo({x=0, y=last_scan_position, z=0})
-        depth = last_scan_position
-    end
+
 
     if not underground_fail_safe then
         -- first refuel with coal from player

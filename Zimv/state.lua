@@ -63,6 +63,7 @@ local function loadState()
         file.write(textutils.serialize({position={x=0, y=0, z=0}, rotation=0}))
         file.close()
     end
+    
     local file = fs.open("state.txt", "r")
     local raw_data = file.readAll()
     file.close()

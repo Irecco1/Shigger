@@ -48,7 +48,7 @@ function scanner.scan()
     local block_list = device.scanBlocks(8)
     local robot_position = state.getPosition()
 
-    for _, block in ipairs(block_list) do
+    for _, block in pairs(block_list) do
         if block.y <= 0 then
             for _, tag in ipairs(white_list) do
                 if block.name:match(":(.+)"):find(tag, 1, true) and block.x > -8 and block.z < 8 and block.y >= max_depth then
@@ -77,7 +77,7 @@ function scanner.isBedrockFound()
     if max_depth > -1000000 then
         return
     end
-    for _, v in ipairs(block_list) do
+    for _, v in pairs(block_list) do
         if v.name == "minecraft:bedrock" and v.y > closest_bedrock then
             closest_bedrock = v.y
         end
@@ -102,7 +102,7 @@ end
 
 function scanner.getSPecialOresList()
     local list = {}
-    for _, v in ipairs(special_ores) do
+    for _, v in pairs(special_ores) do
         table.insert(list, {
             name=v.name,
             x=v.x,
